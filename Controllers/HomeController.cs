@@ -1,5 +1,6 @@
 ﻿using Bitbucket.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace Bitbucket.Controllers
@@ -13,9 +14,12 @@ namespace Bitbucket.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            using BitbucketContext db = new();
+            IEnumerable<Url> urlList = await db.Urls.ToListAsync();
+
+            return View(urlList);
         }
 
         public IActionResult Privacy()
