@@ -1,8 +1,10 @@
 ﻿using Bitbucket.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using System.Diagnostics;
 using System.Text;
+
 
 namespace Bitbucket.Controllers
 {
@@ -27,10 +29,15 @@ namespace Bitbucket.Controllers
                 .Take(12)
                 .ToList().ForEach(e => builder.Append(e));
 
-            url.Token = builder.ToString();
-            url.UserId = 1;
-
             using BitbucketContext db = new();
+            var currentUserId = await db.Users
+                .Where(x => x.Email == User.Identity.Name)
+                .Select(x => x.UserId)
+                .FirstOrDefaultAsync();
+
+            url.Token = builder.ToString();
+            url.UserId = currentUserId;
+
             await db.Urls.AddAsync(url);
             await db.SaveChangesAsync();
 

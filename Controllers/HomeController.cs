@@ -1,4 +1,5 @@
 ﻿using Bitbucket.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
@@ -15,38 +16,25 @@ namespace Bitbucket.Controllers
             _logger = logger;
         }
 
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             using BitbucketContext db = new();
-            IEnumerable<Url> urlList = await db.Urls.ToListAsync();
+
+            var currentUserId = await db.Users
+                .Where(x => x.Email == User.Identity.Name)
+                .Select(x => x.UserId)
+                .FirstOrDefaultAsync();
+
+            IEnumerable<Url> urlList = await db.Urls
+                .Where(x => x.UserId == currentUserId)
+                .ToListAsync();
 
             Url url = new();
 
             UrlViewModel viewModel = new(urlList, url);
 
             return View(viewModel);
-        }
-
-        public async Task<IActionResult> Shorten(Url url)
-        {
-            StringBuilder builder = new StringBuilder();
-            Enumerable
-               .Range(65, 26)
-                .Select(e => ((char)e).ToString())
-                .Concat(Enumerable.Range(97, 26).Select(e => ((char)e).ToString()))
-                .Concat(Enumerable.Range(0, 10).Select(e => e.ToString()))
-                .OrderBy(e => Guid.NewGuid())
-                .Take(12)
-                .ToList().ForEach(e => builder.Append(e));
-
-            url.Token = builder.ToString();
-            url.UserId = 1;
-
-            using BitbucketContext db = new();
-            await db.Urls.AddAsync(url);
-            await db.SaveChangesAsync();
-
-            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult Privacy()
