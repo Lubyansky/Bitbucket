@@ -1,14 +1,4 @@
-﻿
-@model IEnumerable<Bitbucket.Models.Url>
+﻿@model Bitbucket.Models.UrlViewModel
 
-<h2>Список URL</h2>
-<table class="table">
-    <tr><th>Оригинальный URL</th><th>Короткий URL</th></tr>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@item.Original</td>
-            <td>@item.Token</td>
-        </tr>
-    }
-</table>
+@await Html.PartialAsync("_Shorten", Model.Url)
+@await Html.PartialAsync("_UrlsTable", Model.UrlList)

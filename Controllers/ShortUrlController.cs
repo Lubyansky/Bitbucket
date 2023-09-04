@@ -6,25 +6,13 @@ using System.Text;
 
 namespace Bitbucket.Controllers
 {
-    public class HomeController : Controller
+    public class ShortUrlController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<ShortUrlController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public ShortUrlController(ILogger<ShortUrlController> logger)
         {
             _logger = logger;
-        }
-
-        public async Task<IActionResult> Index()
-        {
-            using BitbucketContext db = new();
-            IEnumerable<Url> urlList = await db.Urls.ToListAsync();
-
-            Url url = new();
-
-            UrlViewModel viewModel = new(urlList, url);
-
-            return View(viewModel);
         }
 
         public async Task<IActionResult> Shorten(Url url)
@@ -49,15 +37,5 @@ namespace Bitbucket.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }
