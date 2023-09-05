@@ -1,22 +1,22 @@
-﻿using Bitbucket.Data;
-using Bitbucket.Models.ShortUrl;
+﻿using ShortenUrl.Data;
+using ShortenUrl.Models.ShortUrl;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
 
-namespace Bitbucket.Services.ShortUrls
+namespace ShortenUrl.Services.ShortUrls
 {
     public class ShortUrlsService
     {
-        private readonly BitbucketContext _context;
+        private readonly ShortenUrlContext _context;
 
-        public ShortUrlsService(BitbucketContext context)
+        public ShortUrlsService(ShortenUrlContext context)
         {
             _context = context;
         }
 
         public async Task<IEnumerable<Url>> GetByUserId(int UserId)
         {
-            using BitbucketContext db = new();
+            using ShortenUrlContext db = new();
 
             IEnumerable<Url> UrlList = await db.Urls
                 .Where(x => x.UserId == UserId)

@@ -1,0 +1,20 @@
+﻿@model PageViewModel
+
+@if (Model.HasPreviousPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageNumber - 1)"
+       class="btn btn-outline-dark">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+@if (Model.HasNextPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageNumber + 1)"
+       class="btn btn-outline-dark">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}

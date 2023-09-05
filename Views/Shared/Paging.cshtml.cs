@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace ShortenUrl.Views.ShortUrls
+namespace ShortenUrl.Views.Shared
 {
-    public class _UrlsTableModel : PageModel
+    public class PagerModel : PageModel
     {
         public void OnGet()
         {

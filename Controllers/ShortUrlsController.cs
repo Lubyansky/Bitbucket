@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using Bitbucket.Models.ShortUrl;
-using Bitbucket.Services.ShortUrls;
-using Bitbucket.Services.Account;
+using ShortenUrl.Models.ShortUrl;
+using ShortenUrl.Services.ShortUrls;
+using ShortenUrl.Services.Account;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using ShortenUrl.Models;
 
-namespace Bitbucket.Controllers
+namespace ShortenUrl.Controllers
 {
     public class ShortUrlsController : Controller
     {
@@ -20,13 +22,14 @@ namespace Bitbucket.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int Page = 1, int PerPage = 10)
         {
             int currentUserId = await _UserService.GetUserId(User.Identity.Name);
-
             var UrlList = await _UrlsService.GetByUserId(currentUserId);
 
-            UrlViewModel Model = new(UrlList, new Url());
+            PageViewModel PageViewModel = new(UrlList.Count(), Page, PerPage);
+
+            UrlViewModel Model = new(UrlList, PageViewModel, new Url());
 
             @ViewData["Path"] = HttpContext.Request.Host;
 

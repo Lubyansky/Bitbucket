@@ -1,13 +1,17 @@
-﻿namespace Bitbucket.Models.ShortUrl
+﻿using ShortenUrl.Models;
+
+namespace ShortenUrl.Models.ShortUrl
 {
     public class UrlViewModel
     {
-        public UrlViewModel(IEnumerable<Url> urlList, Url url)
+        public UrlViewModel(IEnumerable<Url> _UrlList, PageViewModel _PageViewModel, Url _Url)
         {
-            UrlList = urlList;
-            Url = url;
+            UrlList = _UrlList;
+            PageViewModel = _PageViewModel;
+            Url = _Url;
         }
         public IEnumerable<Url> UrlList { get; }
+        public PageViewModel PageViewModel { get; set; }
         public Url Url { get; }
     }
 }

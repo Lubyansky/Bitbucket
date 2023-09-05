@@ -1,6 +1,6 @@
-﻿using Bitbucket.Models.Account;
+﻿using ShortenUrl.Models.Account;
 
-namespace Bitbucket.Services.Account
+namespace ShortenUrl.Services.Account
 {
     public interface IGetUserService
     {

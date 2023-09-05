@@ -1,15 +1,15 @@
-﻿using Bitbucket.Data;
-using Bitbucket.Models.Account;
+﻿using ShortenUrl.Data;
+using ShortenUrl.Models.Account;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
-namespace Bitbucket.Services.Account
+namespace ShortenUrl.Services.Account
 {
     public class AccountService : IGetUserService
     {
-        private readonly BitbucketContext _context;
+        private readonly ShortenUrlContext _context;
 
-        public AccountService(BitbucketContext context)
+        public AccountService(ShortenUrlContext context)
         {
             _context = context;
         }

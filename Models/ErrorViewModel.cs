@@ -1,4 +1,4 @@
-namespace Bitbucket.Models
+namespace ShortenUrl.Models
 {
     public class ErrorViewModel
     {

@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using Bitbucket.Models.Account;
-using Bitbucket.Models.ShortUrl;
+using ShortenUrl.Models.Account;
+using ShortenUrl.Models.ShortUrl;
 using Microsoft.EntityFrameworkCore;
 
-namespace Bitbucket.Data;
+namespace ShortenUrl.Data;
 
-public partial class BitbucketContext : DbContext
+public partial class ShortenUrlContext : DbContext
 {
-    public BitbucketContext()
+    public ShortenUrlContext()
     {
     }
 
-    public BitbucketContext(DbContextOptions<BitbucketContext> options)
+    public ShortenUrlContext(DbContextOptions<ShortenUrlContext> options)
         : base(options)
     {
     }
@@ -24,7 +24,7 @@ public partial class BitbucketContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         var config = new ConfigurationBuilder().AddUserSecrets<Program>().Build();
-        optionsBuilder.UseNpgsql($"Host=localhost;Port=5432;Database=bitbucket;Username=postgres;Password={config["db_password"]}");
+        optionsBuilder.UseNpgsql($"Host=localhost;Port=5432;Database=ShortenUrl;Username=postgres;Password={config["db_password"]}");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

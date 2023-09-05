@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Bitbucket.Models.Account
+namespace ShortenUrl.Models.Account
 {
     public class RegisterModel : BaseAuthModel
     {

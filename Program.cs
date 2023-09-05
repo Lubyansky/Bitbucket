@@ -1,6 +1,6 @@
-using Bitbucket.Data;
-using Bitbucket.Services.Account;
-using Bitbucket.Services.ShortUrls;
+using ShortenUrl.Data;
+using ShortenUrl.Services.Account;
+using ShortenUrl.Services.ShortUrls;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +15,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ShortUrlsService, ShortUrlsService>();
 builder.Services.AddScoped<AccountService, AccountService>();
 builder.Services.AddScoped<IGetUserService, AccountService>();
-builder.Services.AddDbContext<BitbucketContext>();
+builder.Services.AddDbContext<ShortenUrlContext>();
 
 var app = builder.Build();
 

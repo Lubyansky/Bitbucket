@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Bitbucket.Views.Account
+namespace ShortenUrl.Views.Account
 {
     public class LoginModel : PageModel
     {

@@ -1,4 +1,4 @@
-﻿namespace Bitbucket.Models.Account
+﻿namespace ShortenUrl.Models.Account
 {
     public class LoginModel : BaseAuthModel
     {

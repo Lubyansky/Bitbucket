@@ -1,7 +1,8 @@
-﻿using Bitbucket.Models;
+﻿using ShortenUrl.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-namespace Bitbucket.Controllers
+
+namespace ShortenUrl.Controllers
 {
     public class HomeController : Controller
     {

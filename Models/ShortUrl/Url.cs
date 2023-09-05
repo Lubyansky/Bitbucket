@@ -1,6 +1,6 @@
-﻿using Bitbucket.Models.Account;
+﻿using ShortenUrl.Models.Account;
 
-namespace Bitbucket.Models.ShortUrl;
+namespace ShortenUrl.Models.ShortUrl;
 
 public partial class Url
 {

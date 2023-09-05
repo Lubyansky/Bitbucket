@@ -22,8 +22,15 @@ body {
     right: 20px;
 }
 
+.table {
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse;
+}
+
 .table th {
     vertical-align: middle;
     text-align: center;
 }
+
 

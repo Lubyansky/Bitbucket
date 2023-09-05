@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Bitbucket.Views.Home
+namespace ShortenUrl.Views.Home
 {
     public class _ViewImportsModel : PageModel
     {
