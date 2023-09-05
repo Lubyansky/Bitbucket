@@ -1,4 +1,5 @@
 ﻿using Bitbucket.Data;
+using Bitbucket.Models.Account;
 using Bitbucket.Models.ShortUrl;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
@@ -7,17 +8,27 @@ namespace Bitbucket.Services.ShortUrls
 {
     public class ShortUrlsService
     {
-        public async Task<UrlViewModel> GetShortUrls(int UserId)
+        public async Task<IEnumerable<Url>> GetByUserId(int UserId)
         {
             using BitbucketContext db = new();
 
             IEnumerable<Url> UrlList = await db.Urls
                 .Where(x => x.UserId == UserId)
+                .OrderBy(x => x.UrlId)
                 .ToListAsync();
 
-            Url Url = new();
+            return UrlList;
+        }
 
-            return new UrlViewModel(UrlList, Url);
+        public async Task<Url> GetByToken(string Token)
+        {
+            using BitbucketContext db = new();
+
+            Url Url = await db.Urls
+               .Where(u => u.Token == Token)
+               .FirstOrDefaultAsync();
+
+            return Url;
         }
 
         public async Task ShortenUrl(int UserId, Url Url)
@@ -41,5 +52,14 @@ namespace Bitbucket.Services.ShortUrls
             await db.SaveChangesAsync();
 
         }
+
+        public async Task IncrementClick(Url Url)
+        {
+            using BitbucketContext db = new();
+            Url.Clicks++;
+            db.Entry(Url).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+        }
+
     }
 }

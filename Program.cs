@@ -31,6 +31,13 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}",
+    defaults: new { controller = "Home", action = "Index" });
+
+app.MapControllerRoute(
+    name: "Everything",
+    pattern: "{path}",
+    new { controller = "ShortUrls", action = "RedirectTo" }
+);
 
 app.Run();

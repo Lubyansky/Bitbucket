@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authorization;
 using Bitbucket.Models.ShortUrl;
 using Bitbucket.Services.ShortUrls;
 using Bitbucket.Services.Account;
+using System.IO;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Bitbucket.Controllers
 {
@@ -24,9 +26,13 @@ namespace Bitbucket.Controllers
         {
             int currentUserId = await _UserService.GetUserId(User.Identity.Name);
 
-            var model = await _UrlsService.GetShortUrls(currentUserId);
+            var UrlList = await _UrlsService.GetByUserId(currentUserId);
 
-            return View(model);
+            UrlViewModel Model = new(UrlList, new Url());
+
+            @ViewData["Path"] = HttpContext.Request.Host;
+
+            return View(Model);
         }
 
         public async Task<IActionResult> Shorten(Url Url)
@@ -36,6 +42,26 @@ namespace Bitbucket.Controllers
             await _UrlsService.ShortenUrl(currentUserId, Url);
 
             return RedirectToAction("Index", "ShortUrls");
+        }
+
+        [HttpGet("/ShortUrls/RedirectTo/{path:required}", Name = "ShortUrls_RedirectTo")]
+        public async Task<IActionResult> RedirectTo(string Path)
+        {
+            if (Path == null)
+            {
+                return NotFound();
+            }
+
+            var Url = await _UrlsService.GetByToken(Path);
+
+            if (Url == null)
+            {
+                return NotFound();
+            }
+
+            await _UrlsService.IncrementClick(Url);
+
+            return Redirect(Url.Original);
         }
 
     }
