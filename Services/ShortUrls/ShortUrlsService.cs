@@ -1,5 +1,5 @@
 ﻿using Bitbucket.Data;
-using Bitbucket.Models.Account;
+using Bitbucket.Helpers;
 using Bitbucket.Models.ShortUrl;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
@@ -8,6 +8,13 @@ namespace Bitbucket.Services.ShortUrls
 {
     public class ShortUrlsService
     {
+        private readonly BitbucketContext _context;
+
+        public ShortUrlsService(BitbucketContext context)
+        {
+            _context = context;
+        }
+
         public async Task<IEnumerable<Url>> GetByUserId(int UserId)
         {
             using BitbucketContext db = new();
@@ -22,9 +29,7 @@ namespace Bitbucket.Services.ShortUrls
 
         public async Task<Url> GetByToken(string Token)
         {
-            using BitbucketContext db = new();
-
-            Url Url = await db.Urls
+            Url Url = await _context.Urls
                .Where(u => u.Token == Token)
                .FirstOrDefaultAsync();
 
@@ -43,23 +48,20 @@ namespace Bitbucket.Services.ShortUrls
                 .Take(12)
                 .ToList().ForEach(e => builder.Append(e));
 
-            using BitbucketContext db = new();
-
-            Url.Token = builder.ToString();
+            Url.Token = builder.ToString(); //ShortUrlHelper.Encode();
             Url.UserId = UserId;
             Url.CreatedAt = DateTime.Now;
 
-            await db.Urls.AddAsync(Url);
-            await db.SaveChangesAsync();
+            await _context.Urls.AddAsync(Url);
+            await _context.SaveChangesAsync();
 
         }
 
         public async Task IncrementClick(Url Url)
         {
-            using BitbucketContext db = new();
             Url.Clicks++;
-            db.Entry(Url).State = EntityState.Modified;
-            await db.SaveChangesAsync();
+            _context.Entry(Url).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
 
     }

@@ -1,7 +1,4 @@
 ﻿using Bitbucket.Models.Account;
-using Bitbucket.Models.ShortUrl;
-using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace Bitbucket.Services.Account
 {

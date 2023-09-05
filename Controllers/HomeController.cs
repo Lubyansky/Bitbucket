@@ -1,8 +1,6 @@
 ﻿using Bitbucket.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using System.Text;
-
 namespace Bitbucket.Controllers
 {
     public class HomeController : Controller

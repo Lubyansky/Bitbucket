@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Authorization;
 using Bitbucket.Models.ShortUrl;
 using Bitbucket.Services.ShortUrls;
 using Bitbucket.Services.Account;
-using System.IO;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Bitbucket.Controllers
 {

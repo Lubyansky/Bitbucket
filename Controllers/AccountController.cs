@@ -1,15 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using System;
-using Bitbucket.Data;
 using Bitbucket.Models.Account;
 using Bitbucket.Services.Account;
-using System.ComponentModel.DataAnnotations;
 
 namespace Bitbucket.Controllers
 {
