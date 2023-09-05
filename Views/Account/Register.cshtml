@@ -1,4 +1,7 @@
-﻿@model RegisterModel
+﻿@{
+    ViewData["Title"] = "Регистрация";
+}
+@model RegisterModel
 
 <h2>Регистрация</h2>
 
@@ -25,3 +28,5 @@
         </div>
     </div>
 </form>
+
+<a asp-action="Login" asp-controller="Account">Войти</a>

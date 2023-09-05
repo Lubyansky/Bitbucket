@@ -1,4 +1,7 @@
-﻿@model UrlViewModel
+﻿@{
+    ViewData["Title"] = "Укорачиватель ссылок";
+}
+@model UrlViewModel
 
 @await Html.PartialAsync("_Shorten", Model.Url)
 @await Html.PartialAsync("_UrlsTable", Model.UrlList)
