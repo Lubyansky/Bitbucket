@@ -27,8 +27,8 @@
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Выйти</a>
+                            <li class="nav-item logout">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">@User.Identity.Name (Выйти)</a>
                             </li>
                         }
                     </ul>

@@ -1,5 +1,4 @@
 ﻿using Bitbucket.Data;
-using Bitbucket.Helpers;
 using Bitbucket.Models.ShortUrl;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
@@ -48,7 +47,7 @@ namespace Bitbucket.Services.ShortUrls
                 .Take(12)
                 .ToList().ForEach(e => builder.Append(e));
 
-            Url.Token = builder.ToString(); //ShortUrlHelper.Encode();
+            Url.Token = builder.ToString();
             Url.UserId = UserId;
             Url.CreatedAt = DateTime.Now;
 

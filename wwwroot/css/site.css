@@ -16,3 +16,14 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.logout{
+    position: absolute;
+    right: 20px;
+}
+
+.table th {
+    vertical-align: middle;
+    text-align: center;
+}
+

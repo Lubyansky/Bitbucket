@@ -1,8 +1,12 @@
 ﻿@model IEnumerable<Url>
 
-<h2>Список URL</h2>
-<table class="table">
-    <tr><th>Оригинальный URL</th><th>Дата создания</th><th>Короткий URL</th><th>Переходов по ссылке</th></tr>
+<table class="table table-striped mt-5">
+    <tr>
+        <th scope="col">Оригинальный URL</th>
+        <th scope="col">Дата создания</th>
+        <th scope="col">Короткий URL</th>
+        <th scope="col">Переходов по ссылке</th>
+    </tr>
     @foreach (var item in Model)
     {
         <tr>
@@ -17,7 +21,7 @@
                     @ViewData["Path"]/@item.Token
                 </a>
             </td>
-            <td>@item.Clicks</td>
+            <td><center>@item.Clicks</center></td>
         </tr>
     }
 </table>
