@@ -11,22 +11,22 @@
         <div class="col-md-4">
             <label asp-for="Email" class="form-label">Введите Email</label><br />
             <input type="text" asp-for="Email" class="form-control" />
-            <span asp-validation-for="Email" />
+            <span asp-validation-for="Email"></span>
         </div>
         <div class="col-md-4">
             <label asp-for="Password" class="form-label">Введите пароль</label><br />
             <input asp-for="Password" class="form-control"  />
-            <span asp-validation-for="Password" />
+            <span asp-validation-for="Password"></span>
         </div>
         <div class="col-md-4">
             <label asp-for="ConfirmPassword" class="form-label">Повторите пароль</label><br />
             <input asp-for="ConfirmPassword" class="form-control" />
-            <span asp-validation-for="ConfirmPassword" />
+            <span asp-validation-for="ConfirmPassword"></span>
         </div>
         <div class="col-12">
-            <input type="submit" value="Регистрация" class="btn btn-outline-dark"  />
+            <input type="submit" value="Зарегистрироваться" class="btn btn-outline-dark"  />
         </div>
     </div>
 </form>
 
-<a asp-action="Login" asp-controller="Account" class="btn btn-outline-dark mt-3">Войти</a>
+<a asp-action="Login" asp-controller="Account" class="btn btn-outline-dark mt-3">Авторизация</a>
