@@ -3,19 +3,24 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using Bitbucket.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System;
+using Bitbucket.Data;
+using Bitbucket.Models.Account;
+using Bitbucket.Services.Account;
+using System.ComponentModel.DataAnnotations;
 
 namespace Bitbucket.Controllers
 {
     public class AccountController : Controller
     {
         private readonly ILogger<AccountController> _logger;
-        public AccountController(ILogger<AccountController> logger)
+        private readonly AccountService _service;
+        public AccountController(ILogger<AccountController> logger, AccountService service)
         {
             _logger = logger;
+            _service = service;
         }
         [HttpGet]
         public IActionResult Login()
@@ -24,22 +29,21 @@ namespace Bitbucket.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginModel model)
+        public async Task<IActionResult> Login(LoginModel Model)
         {
             if (ModelState.IsValid)
             {
-                using BitbucketContext db = new BitbucketContext();
-                User user = await db.Users.FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
+                Boolean UserIsExist = await _service.AuthenticateUser(Model);
 
-                if (user != null)
+                if (UserIsExist)
                 {
-                    await Authenticate(model.Email);
+                    await Authenticate(Model);
 
                     return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("", "Некорректные логин и(или) пароль");
             }
-            return View(model);
+            return View(Model);
         }
         [HttpGet]
         public IActionResult Register()
@@ -48,35 +52,29 @@ namespace Bitbucket.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterModel model)
+        public async Task<IActionResult> Register(RegisterModel Model)
         {
             if (ModelState.IsValid)
             {
-                using BitbucketContext db = new BitbucketContext();
-                User user = await db.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
-                if (user == null)
+                Boolean UserIsExist = await _service.FindUser(Model);
+                if (!UserIsExist)
                 {
-                    db.Users.Add(new User { Email = model.Email, Password = model.Password });
-                    await db.SaveChangesAsync();
+                    await _service.CreateUser(Model);
 
-                    await Authenticate(model.Email);
+                    await Authenticate(Model);
 
                     return RedirectToAction("Index", "Home");
                 }
                 else
                     ModelState.AddModelError("", "Некорректные логин и(или) пароль");
             }
-            return View(model);
+            return View(Model);
         }
 
-        private async Task Authenticate(string userName)
+        private async Task Authenticate(BaseAuthModel Model)
         {
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, userName)
-            };
-            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+            ClaimsIdentity Id = _service.SetClaimIdentity(Model);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(Id));
         }
 
         public async Task<IActionResult> Logout()

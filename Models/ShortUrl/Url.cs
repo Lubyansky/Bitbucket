@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Bitbucket.Models.Account;
 
-namespace Bitbucket.Models;
+namespace Bitbucket.Models.ShortUrl;
 
 public partial class Url
 {

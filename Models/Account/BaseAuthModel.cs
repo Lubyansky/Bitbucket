@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Bitbucket.Models
+namespace Bitbucket.Models.Account
 {
-    public class LoginModel
+    public abstract class BaseAuthModel
     {
         [Required(ErrorMessage = "Не указан Email")]
         public string Email { get; set; }

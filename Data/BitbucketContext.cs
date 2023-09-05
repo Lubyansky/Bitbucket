@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Bitbucket.Models.Account;
+using Bitbucket.Models.ShortUrl;
 using Microsoft.EntityFrameworkCore;
 
-namespace Bitbucket.Models;
+namespace Bitbucket.Data;
 
 public partial class BitbucketContext : DbContext
 {

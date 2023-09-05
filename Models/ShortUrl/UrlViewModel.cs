@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
-namespace Bitbucket.Models
+namespace Bitbucket.Models.ShortUrl
 {
     public class UrlViewModel
     {
