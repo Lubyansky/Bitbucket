@@ -34,10 +34,8 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}",
     defaults: new { controller = "Home", action = "Index" });
 
-app.MapControllerRoute(
-    name: "Everything",
-    pattern: "{path}",
-    new { controller = "ShortUrls", action = "RedirectTo" }
-);
+app.MapControllerRoute(name: "redirection",
+                pattern: "{path:required}",
+                defaults: new { controller = "ShortUrls", action = "RedirectTo" });
 
 app.Run();

@@ -14,7 +14,7 @@ namespace Bitbucket.Controllers
             _logger = logger;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return RedirectToAction(controllerName: "ShortUrls", actionName: "Index");
         }

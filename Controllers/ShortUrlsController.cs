@@ -44,7 +44,6 @@ namespace Bitbucket.Controllers
             return RedirectToAction("Index", "ShortUrls");
         }
 
-        [HttpGet("/ShortUrls/RedirectTo/{path:required}", Name = "ShortUrls_RedirectTo")]
         public async Task<IActionResult> RedirectTo(string Path)
         {
             if (Path == null)

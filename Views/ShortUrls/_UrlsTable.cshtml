@@ -14,7 +14,7 @@
             <td>@item.CreatedAt</td>
             <td>
                 <a asp-controller="ShortUrls" asp-action="RedirectTo" asp-route-path="@item.Token">
-                    @ViewData["Path"]/ShortUrls/RedirectTo/@item.Token
+                    @ViewData["Path"]/@item.Token
                 </a>
             </td>
             <td>@item.Clicks</td>
