@@ -11,7 +11,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                     options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
                 });
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<IShortUrlsService, ShortUrlsService>();
+builder.Services.AddScoped<ShortUrlsService, ShortUrlsService>();
+builder.Services.AddScoped<AccountService, AccountService>();
 builder.Services.AddScoped<IGetUserService, AccountService>();
 
 var app = builder.Build();
