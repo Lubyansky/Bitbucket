@@ -2,7 +2,7 @@
 
 <h2>Список URL</h2>
 <table class="table">
-    <tr><th>Оригинальный URL</th><th>Короткий URL</th><th>Переходов по ссылке</th></tr>
+    <tr><th>Оригинальный URL</th><th>Дата создания</th><th>Короткий URL</th><th>Переходов по ссылке</th></tr>
     @foreach (var item in Model)
     {
         <tr>
@@ -11,6 +11,7 @@
                     @item.Original
                 </a>
             </td>
+            <td>@item.CreatedAt</td>
             <td>
                 <a asp-controller="ShortUrls" asp-action="RedirectTo" asp-route-path="@item.Token">
                     @ViewData["Path"]/ShortUrls/RedirectTo/@item.Token

@@ -47,6 +47,7 @@ namespace Bitbucket.Services.ShortUrls
 
             Url.Token = builder.ToString();
             Url.UserId = UserId;
+            Url.CreatedAt = DateTime.Now;
 
             await db.Urls.AddAsync(Url);
             await db.SaveChangesAsync();

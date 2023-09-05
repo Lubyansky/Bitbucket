@@ -44,6 +44,9 @@ public partial class BitbucketContext : DbContext
                 .HasColumnType("character varying")
                 .HasColumnName("token");
             entity.Property(e => e.UserId).HasColumnName("user_id");
+            entity.Property(e => e.CreatedAt)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("created_at");
 
             entity.HasOne(d => d.User).WithMany(p => p.Urls)
                 .HasForeignKey(d => d.UserId)
